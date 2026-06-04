@@ -1,0 +1,13 @@
+# Build artifacts
+*.o
+*.d
+*.a
+*.elf
+*.img
+*.map
+*.lst
+*.bin
+
+# Always include
+!firmware/
+!firmware/**
