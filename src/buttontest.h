@@ -6,6 +6,7 @@
 #include <circle/gpiopin.h>
 #include <circle/interrupt.h>
 #include <circle/timer.h>
+#include <circle/logger.h>
 #include "usbds4gadget.h"
 
 class CButtonTest
@@ -13,11 +14,11 @@ class CButtonTest
 public:
     // Connect buttons to TPinNumber. 
     // Log the press and release through UART
-    void test_gpio (void);
+    void TestGPIO (void);
 
     // Repeatedly simulate all 8 button presses (4 face + 4 D-pad) 
     // and send to host
-    void test_ds4_simulation (CUSBDS4Gadget *pGadget, CTimer *pTimer);
+    void TestDS4Simulation (CUSBDS4Gadget *pGadget, CTimer *pTimer);
 
 private:
     enum TPinNumber

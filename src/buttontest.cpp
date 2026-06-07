@@ -1,12 +1,39 @@
 #include "buttontest.h"
 #include "usbds4gadgetendpoint.h"
 
-void CButtonTest::test_gpio (void)
+// Log button action if there's any
+static void LogButtonAction (const char *pPinName, unsigned prevAct, unsigned curAct)
 {
+    if (prevAct == curAct) return;
 
+    // Release is 1 (pull-up)
+    CLogger::Get ()->Write (
+        "buttontest", LogNotice, "Pin %s: %s", pPinName, curAct ? "released" : "pressed");
 }
 
-void CButtonTest::test_ds4_simulation (CUSBDS4Gadget *pGadget, CTimer *pTimer)
+void CButtonTest::TestGPIO (void)
+{
+    CGPIOPin pinA (PinA, GPIOModeInputPullUp);
+    CGPIOPin pinB (PinB, GPIOModeInputPullUp);
+
+    unsigned nPrevA = 1, nPrevB = 1;
+
+    CLogger::Get ()->Write ("buttontest", LogNotice, "Button GPIO test ready");
+
+    while (1)
+    {
+        unsigned nCurA = pinA.Read ();
+        unsigned nCurB = pinB.Read ();
+
+        LogButtonAction ("A", nPrevA, nCurA);
+        LogButtonAction ("B", nPrevB, nCurB);
+
+        nPrevA = nCurA;
+        nPrevB = nCurB;
+    }
+}
+
+void CButtonTest::TestDS4Simulation (CUSBDS4Gadget *pGadget, CTimer *pTimer)
 {
     // Report per 5ms
     // Ref: bInterval of Endpoint Descriptor (IN) at

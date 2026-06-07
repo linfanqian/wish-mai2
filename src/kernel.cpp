@@ -36,8 +36,8 @@ boolean CKernel::Initialize (void)
 
 TShutdownMode CKernel::Run (void)
 {
-    CButtonTest test;
-    test.test_ds4_simulation (&m_PS4Gadget, &m_Timer);
+    CButtonTest ctest;
+    ctest.TestGPIO ();
 
     return ShutdownHalt;
 }
