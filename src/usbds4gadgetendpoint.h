@@ -19,6 +19,21 @@
    https://github.com/torvalds/linux/blob/ba3e43a9e601636f5edb54e259a74f96ca3b8fd8/drivers/hid/hid-playstation.c#L478 */
 #define DS4_REPORT_SIZE  64
 
+struct TDS4ButtonState
+{
+	// Face buttons
+	boolean bNorth;      // Triangle
+    boolean bEast;       // Circle
+    boolean bSouth;      // Cross
+    boolean bWest;       // Square
+
+	// D-pad
+    boolean bDpadUp;
+    boolean bDpadRight;
+    boolean bDpadDown;
+    boolean bDpadLeft;
+};
+
 class CUSBDS4Gadget;
 
 class CUSBDS4GadgetEndpoint : public CDWUSBGadgetEndpoint
@@ -34,6 +49,7 @@ public:
 
 	// Buffer must be DS4_REPORT_SIZE long.
 	static void InitDS4Report (u8 *buf);
+	static void CreateDS4Report (u8 *pReport, const TDS4ButtonState *pState, u8 nCounter);
 
 	// Stage a next report. Copy the report to DMA buffer when inflight transfer completed
 	// Thread-safe is guaranteed, so it's ok to call SendReport when during a DMA transfer

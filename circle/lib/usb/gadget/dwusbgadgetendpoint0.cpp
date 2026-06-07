@@ -156,19 +156,25 @@ void CDWUSBGadgetEndpoint0::OnControlMessage (void)
 			break;
 
 		case SET_CONFIGURATION:
-			if (!m_pGadget->SetConfiguration (pSetupData->wValue & 0xFF))
+			// bRequest=0x09 is shared with HID SET_REPORT (bmRequestType=0x21).
+			// Only treat it as SET_CONFIGURATION for Standard requests (bmRequestType=0x00).
+			if (pSetupData->bmRequestType == 0x00)
 			{
-				Stall (TRUE);
+				if (!m_pGadget->SetConfiguration (pSetupData->wValue & 0xFF))
+				{
+					Stall (TRUE);
 
-				BeginTransfer (TransferSetupOut, m_OutBuffer, sizeof (TSetupData));
+					BeginTransfer (TransferSetupOut, m_OutBuffer, sizeof (TSetupData));
 
-				return;
+					return;
+				}
+
+				m_State = StateInStatusPhase;
+
+				BeginTransfer (TransferDataIn, nullptr, 0);
+				break;
 			}
-
-			m_State = StateInStatusPhase;
-
-			BeginTransfer (TransferDataIn, nullptr, 0);
-			break;
+			[[fallthrough]];
 
 		default:
 			if (pSetupData->wLength)

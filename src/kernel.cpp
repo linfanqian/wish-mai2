@@ -35,18 +35,50 @@ boolean CKernel::Initialize (void)
 
 TShutdownMode CKernel::Run (void)
 {
+	// Timing in reports (1 report = 5 ms)
+	static const unsigned nHoldReports    =  60;  //  300 ms — button held
+	static const unsigned nReleaseReports =  40;  //  200 ms — button released
+	static const unsigned nWaitReports    = 200;  // 1000 ms — pause before next button
+
+	static const unsigned nPeriod = nHoldReports + nReleaseReports + nWaitReports;
+
+	static const TDS4ButtonState s_Sequence[] =
+	{
+		{ TRUE,  FALSE, FALSE, FALSE,  FALSE, FALSE, FALSE, FALSE },  // North  (Triangle)
+		{ FALSE, TRUE,  FALSE, FALSE,  FALSE, FALSE, FALSE, FALSE },  // East   (Circle)
+		{ FALSE, FALSE, TRUE,  FALSE,  FALSE, FALSE, FALSE, FALSE },  // South  (Cross)
+		{ FALSE, FALSE, FALSE, TRUE,   FALSE, FALSE, FALSE, FALSE },  // West   (Square)
+		{ FALSE, FALSE, FALSE, FALSE,  TRUE,  FALSE, FALSE, FALSE },  // D-pad Up
+		{ FALSE, FALSE, FALSE, FALSE,  FALSE, TRUE,  FALSE, FALSE },  // D-pad Right
+		{ FALSE, FALSE, FALSE, FALSE,  FALSE, FALSE, TRUE,  FALSE },  // D-pad Down
+		{ FALSE, FALSE, FALSE, FALSE,  FALSE, FALSE, FALSE, TRUE  },  // D-pad Left
+	};
+	static const unsigned nSteps = sizeof s_Sequence / sizeof *s_Sequence;
+
+	static const TDS4ButtonState s_Neutral = { FALSE, FALSE, FALSE, FALSE,
+	                                           FALSE, FALSE, FALSE, FALSE };
+
 	u8 report[DS4_REPORT_SIZE];
 	u8 nCounter = 0;
+	unsigned nStep = 0;
+	unsigned nPhase = 0;   // counts within the current period
 
 	while (TRUE)
 	{
 		m_PS4Gadget.UpdatePlugAndPlay ();
 
-		CGPIOController::TButtonState state;
-		m_GPIO.Read (&state);
+		const TDS4ButtonState *pState = (nPhase < nHoldReports)
+		    ? &s_Sequence[nStep]
+		    : &s_Neutral;
 
-		BuildReport (state, report, nCounter++);
+		CUSBDS4GadgetEndpoint::CreateDS4Report (report, pState, nCounter++);
 		m_PS4Gadget.SendDS4Report (report);
+
+		if (++nPhase >= nPeriod)
+		{
+			nPhase = 0;
+			nStep  = (nStep + 1) % nSteps;
+		}
 
 		m_Timer.MsDelay (5);
 	}
@@ -87,7 +119,7 @@ void CKernel::BuildReport (const CGPIOController::TButtonState &state,
 	pReport[6] = 0x00;
 
 	// Byte 7: PS[0] Touch[1] counter[7:2]
-	pReport[7] = (u8) ((nCounter & 0x3F) << 2);
+	//pReport[7] = (u8) ((nCounter & 0x3F) << 2);
 
 	// Bytes 8-9: L2/R2 analog (not wired → 0)
 	// Bytes 10-63: IMU/battery/touchpad padding → already 0
