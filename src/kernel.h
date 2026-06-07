@@ -15,36 +15,33 @@
 
 enum TShutdownMode
 {
-	ShutdownNone,
-	ShutdownHalt,
-	ShutdownReboot
+    ShutdownNone,
+    ShutdownHalt,
+    ShutdownReboot
 };
 
 class CKernel
 {
 public:
-	CKernel (void);
-	~CKernel (void);
+    CKernel (void);
+    ~CKernel (void);
 
-	boolean Initialize (void);
-	TShutdownMode Run (void);
+    boolean Initialize (void);
+    TShutdownMode Run (void);
 
 private:
-	void BuildReport (const CGPIOController::TButtonState &state, u8 *pReport,
-			  u8 nCounter);
-
-	// Member declaration order must not change: each constructor may take
-	// a pointer to a previously declared member.
-	CActLED            m_ActLED;
-	CKernelOptions     m_Options;
-	CDeviceNameService m_DeviceNameService;
-	CSerialDevice      m_Serial;
-	CExceptionHandler  m_ExceptionHandler;
-	CInterruptSystem   m_Interrupt;
-	CTimer             m_Timer;
-	CLogger            m_Logger;
-	CUSBDS4Gadget      m_PS4Gadget;
-	CGPIOController    m_GPIO;
+    // Member declaration order must not change: each constructor may take
+    // a pointer to a previously declared member.
+    CActLED            m_ActLED;
+    CKernelOptions     m_Options;
+    CDeviceNameService m_DeviceNameService;
+    CSerialDevice      m_Serial;
+    CExceptionHandler  m_ExceptionHandler;
+    CInterruptSystem   m_Interrupt;
+    CTimer             m_Timer;
+    CLogger            m_Logger;
+    CUSBDS4Gadget      m_PS4Gadget;
+    CGPIOController    m_GPIO;
 };
 
 #endif

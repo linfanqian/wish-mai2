@@ -16,31 +16,31 @@
 class CGPIOController
 {
 public:
-	struct TButtonState
-	{
-		boolean bNorth;      // Triangle
-		boolean bEast;       // Circle
-		boolean bSouth;      // Cross / X
-		boolean bWest;       // Square
-		boolean bDpadUp;
-		boolean bDpadRight;
-		boolean bDpadDown;
-		boolean bDpadLeft;
-	};
+    struct TButtonState
+    {
+        boolean bNorth;      // Triangle
+        boolean bEast;       // Circle
+        boolean bSouth;      // Cross / X
+        boolean bWest;       // Square
+        boolean bDpadUp;
+        boolean bDpadRight;
+        boolean bDpadDown;
+        boolean bDpadLeft;
+    };
 
-	CGPIOController (void);
+    CGPIOController (void);
 
-	void Read (TButtonState *pState);
+    void Read (TButtonState *pState);
 
 private:
-	CGPIOPin m_PinNorth;
-	CGPIOPin m_PinEast;
-	CGPIOPin m_PinSouth;
-	CGPIOPin m_PinWest;
-	CGPIOPin m_PinDpadUp;
-	CGPIOPin m_PinDpadRight;
-	CGPIOPin m_PinDpadDown;
-	CGPIOPin m_PinDpadLeft;
+    CGPIOPin m_PinNorth;
+    CGPIOPin m_PinEast;
+    CGPIOPin m_PinSouth;
+    CGPIOPin m_PinWest;
+    CGPIOPin m_PinDpadUp;
+    CGPIOPin m_PinDpadRight;
+    CGPIOPin m_PinDpadDown;
+    CGPIOPin m_PinDpadLeft;
 };
 
 #endif

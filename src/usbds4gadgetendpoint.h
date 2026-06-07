@@ -21,13 +21,13 @@
 
 struct TDS4ButtonState
 {
-	// Face buttons
-	boolean bNorth;      // Triangle
+    // Face buttons
+    boolean bNorth;      // Triangle
     boolean bEast;       // Circle
     boolean bSouth;      // Cross
     boolean bWest;       // Square
 
-	// D-pad
+    // D-pad
     boolean bDpadUp;
     boolean bDpadRight;
     boolean bDpadDown;
@@ -39,34 +39,34 @@ class CUSBDS4Gadget;
 class CUSBDS4GadgetEndpoint : public CDWUSBGadgetEndpoint
 {
 public:
-	CUSBDS4GadgetEndpoint (const TUSBEndpointDescriptor *pDesc, CUSBDS4Gadget *pGadget);
-	~CUSBDS4GadgetEndpoint (void);
+    CUSBDS4GadgetEndpoint (const TUSBEndpointDescriptor *pDesc, CUSBDS4Gadget *pGadget);
+    ~CUSBDS4GadgetEndpoint (void);
 
-	void OnActivate (void) override;
-	void OnDeactivate (void) override;
-	void OnTransferComplete (boolean bIn, size_t nLength) override;
-	void OnSuspend (void) override;
+    void OnActivate (void) override;
+    void OnDeactivate (void) override;
+    void OnTransferComplete (boolean bIn, size_t nLength) override;
+    void OnSuspend (void) override;
 
-	// Buffer must be DS4_REPORT_SIZE long.
-	static void InitDS4Report (u8 *buf);
-	static void CreateDS4Report (u8 *pReport, const TDS4ButtonState *pState, u8 nCounter);
+    // Buffer must be DS4_REPORT_SIZE long.
+    static void InitDS4Report (u8 *buf);
+    static void CreateDS4Report (u8 *pReport, const TDS4ButtonState *pState, u8 nCounter);
 
-	// Stage a next report. Copy the report to DMA buffer when inflight transfer completed
-	// Thread-safe is guaranteed, so it's ok to call SendReport when during a DMA transfer
-	void SendReport (const u8 *pReport);
+    // Stage a next report. Copy the report to DMA buffer when inflight transfer completed
+    // Thread-safe is guaranteed, so it's ok to call SendReport when during a DMA transfer
+    void SendReport (const u8 *pReport);
 
 private:
-	volatile boolean m_bActive;
+    volatile boolean m_bActive;
 
-	// m_PendingBuffer is written by SendReport()
-	// m_DMABuffer is used for live DMA.
-	u8 m_PendingBuffer[DS4_REPORT_SIZE];
-	DMA_BUFFER (u8, m_DMABuffer, DS4_REPORT_SIZE);
+    // m_PendingBuffer is written by SendReport()
+    // m_DMABuffer is used for live DMA.
+    u8 m_PendingBuffer[DS4_REPORT_SIZE];
+    DMA_BUFFER (u8, m_DMABuffer, DS4_REPORT_SIZE);
 
-	// Protect m_PendingBuffer read/write
-	// This cannot be a mutex since OnTransferComplete that reads m_PendingBuffer runs in 
-	// interrupt context
-	CSpinLock m_SpinLock;
+    // Protect m_PendingBuffer read/write
+    // This cannot be a mutex since OnTransferComplete that reads m_PendingBuffer runs in 
+    // interrupt context
+    CSpinLock m_SpinLock;
 };
 
 #endif

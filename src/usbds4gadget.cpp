@@ -28,71 +28,71 @@
 // ---------------------------------------------------------------------------
 static const u8 s_HIDReportDescriptor[] =
 {
-	0x05, 0x01,        // Usage Page (Generic Desktop)
-	0x09, 0x05,        // Usage (Game Pad)
-	0xA1, 0x01,        // Collection (Application)
-	0x85, 0x01,        // Report ID (1)
+    0x05, 0x01,        // Usage Page (Generic Desktop)
+    0x09, 0x05,        // Usage (Game Pad)
+    0xA1, 0x01,        // Collection (Application)
+    0x85, 0x01,        // Report ID (1)
 
-	// Axes: LX LY RX RY  →  4 bytes
-	0x09, 0x30,        //   Usage (X)
-	0x09, 0x31,        //   Usage (Y)
-	0x09, 0x32,        //   Usage (Z)
-	0x09, 0x35,        //   Usage (Rz)
-	0x15, 0x00,        //   Logical Minimum (0)
-	0x26, 0xFF, 0x00,  //   Logical Maximum (255)
-	0x75, 0x08,        //   Report Size (8)
-	0x95, 0x04,        //   Report Count (4)
-	0x81, 0x02,        //   Input (Data,Var,Abs)
+    // Axes: LX LY RX RY  →  4 bytes
+    0x09, 0x30,        //   Usage (X)
+    0x09, 0x31,        //   Usage (Y)
+    0x09, 0x32,        //   Usage (Z)
+    0x09, 0x35,        //   Usage (Rz)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,  //   Logical Maximum (255)
+    0x75, 0x08,        //   Report Size (8)
+    0x95, 0x04,        //   Report Count (4)
+    0x81, 0x02,        //   Input (Data,Var,Abs)
 
-	// D-pad hat switch  →  4 bits, null state for neutral (value 8)
-	0x09, 0x39,        //   Usage (Hat switch)
-	0x15, 0x00,        //   Logical Minimum (0)
-	0x25, 0x07,        //   Logical Maximum (7)
-	0x35, 0x00,        //   Physical Minimum (0)
-	0x46, 0x3B, 0x01,  //   Physical Maximum (315)
-	0x65, 0x14,        //   Unit (Eng Rot:Angular Pos)
-	0x75, 0x04,        //   Report Size (4)
-	0x95, 0x01,        //   Report Count (1)
-	0x81, 0x42,        //   Input (Data,Var,Abs,Null)
+    // D-pad hat switch  →  4 bits, null state for neutral (value 8)
+    0x09, 0x39,        //   Usage (Hat switch)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x25, 0x07,        //   Logical Maximum (7)
+    0x35, 0x00,        //   Physical Minimum (0)
+    0x46, 0x3B, 0x01,  //   Physical Maximum (315)
+    0x65, 0x14,        //   Unit (Eng Rot:Angular Pos)
+    0x75, 0x04,        //   Report Size (4)
+    0x95, 0x01,        //   Report Count (1)
+    0x81, 0x42,        //   Input (Data,Var,Abs,Null)
 
-	// Buttons 1-14  →  14 bits
-	// 1=Square 2=Cross 3=Circle 4=Triangle 5=L1 6=R1 7=L2 8=R2
-	// 9=Share 10=Options 11=L3 12=R3 13=PS 14=Touchpad
-	0x65, 0x00,        //   Unit (None)
-	0x05, 0x09,        //   Usage Page (Button)
-	0x19, 0x01,        //   Usage Minimum (1)
-	0x29, 0x0E,        //   Usage Maximum (14)
-	0x15, 0x00,        //   Logical Minimum (0)
-	0x25, 0x01,        //   Logical Maximum (1)
-	0x75, 0x01,        //   Report Size (1)
-	0x95, 0x0E,        //   Report Count (14)
-	0x81, 0x02,        //   Input (Data,Var,Abs)
+    // Buttons 1-14  →  14 bits
+    // 1=Square 2=Cross 3=Circle 4=Triangle 5=L1 6=R1 7=L2 8=R2
+    // 9=Share 10=Options 11=L3 12=R3 13=PS 14=Touchpad
+    0x65, 0x00,        //   Unit (None)
+    0x05, 0x09,        //   Usage Page (Button)
+    0x19, 0x01,        //   Usage Minimum (1)
+    0x29, 0x0E,        //   Usage Maximum (14)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x25, 0x01,        //   Logical Maximum (1)
+    0x75, 0x01,        //   Report Size (1)
+    0x95, 0x0E,        //   Report Count (14)
+    0x81, 0x02,        //   Input (Data,Var,Abs)
 
-	// Padding to byte boundary  →  6 bits
-	0x75, 0x06,        //   Report Size (6)
-	0x95, 0x01,        //   Report Count (1)
-	0x81, 0x03,        //   Input (Const,Var,Abs)
+    // Padding to byte boundary  →  6 bits
+    0x75, 0x06,        //   Report Size (6)
+    0x95, 0x01,        //   Report Count (1)
+    0x81, 0x03,        //   Input (Const,Var,Abs)
 
-	// L2 / R2 analog  →  2 bytes
-	0x05, 0x01,        //   Usage Page (Generic Desktop)
-	0x09, 0x33,        //   Usage (Rx)
-	0x09, 0x34,        //   Usage (Ry)
-	0x15, 0x00,        //   Logical Minimum (0)
-	0x26, 0xFF, 0x00,  //   Logical Maximum (255)
-	0x75, 0x08,        //   Report Size (8)
-	0x95, 0x02,        //   Report Count (2)
-	0x81, 0x02,        //   Input (Data,Var,Abs)
+    // L2 / R2 analog  →  2 bytes
+    0x05, 0x01,        //   Usage Page (Generic Desktop)
+    0x09, 0x33,        //   Usage (Rx)
+    0x09, 0x34,        //   Usage (Ry)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,  //   Logical Maximum (255)
+    0x75, 0x08,        //   Report Size (8)
+    0x95, 0x02,        //   Report Count (2)
+    0x81, 0x02,        //   Input (Data,Var,Abs)
 
-	// Vendor-defined padding covering IMU/battery/touchpad  →  54 bytes
-	0x06, 0x00, 0xFF,  //   Usage Page (Vendor Defined 0xFF00)
-	0x09, 0x20,        //   Usage (0x20)
-	0x15, 0x00,        //   Logical Minimum (0)
-	0x26, 0xFF, 0x00,  //   Logical Maximum (255)
-	0x75, 0x08,        //   Report Size (8)
-	0x95, 0x36,        //   Report Count (54)
-	0x81, 0x02,        //   Input (Data,Var,Abs)
+    // Vendor-defined padding covering IMU/battery/touchpad  →  54 bytes
+    0x06, 0x00, 0xFF,  //   Usage Page (Vendor Defined 0xFF00)
+    0x09, 0x20,        //   Usage (0x20)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,  //   Logical Maximum (255)
+    0x75, 0x08,        //   Report Size (8)
+    0x95, 0x36,        //   Report Count (54)
+    0x81, 0x02,        //   Input (Data,Var,Abs)
 
-	0xC0               // End Collection
+    0xC0               // End Collection
 };
 
 // Different structure for USB descriptors in circle/include/circle/usb/usb.h
@@ -100,96 +100,96 @@ static const u8 s_HIDReportDescriptor[] =
 // Descriptors generated by Claude
 struct TDS4ConfigDescriptor
 {
-	TUSBConfigurationDescriptor Config;
-	TUSBInterfaceDescriptor     Interface;
-	TUSBHIDDescriptor 			HID;
-	TUSBEndpointDescriptor      EndpointIn;
+    TUSBConfigurationDescriptor Config;
+    TUSBInterfaceDescriptor     Interface;
+    TUSBHIDDescriptor             HID;
+    TUSBEndpointDescriptor      EndpointIn;
 } PACKED;
 
 static const TDS4ConfigDescriptor s_ConfigDescriptor =
 {
-	{   // Configuration
-		sizeof (TUSBConfigurationDescriptor),
-		DESCRIPTOR_CONFIGURATION,
-		sizeof (TDS4ConfigDescriptor),
-		1,              // bNumInterfaces
-		1,              // bConfigurationValue
-		0,              // iConfiguration
-		0x80,           // bmAttributes (bus-powered)
-		250             // bMaxPower (500 mA)
-	},
-	{   // Interface
-		sizeof (TUSBInterfaceDescriptor),
-		DESCRIPTOR_INTERFACE,
-		0, 0,           // bInterfaceNumber, bAlternateSetting
-		1,              // bNumEndpoints
-		0x03,           // bInterfaceClass (HID)
-		0x00,           // bInterfaceSubClass (no boot)
-		0x00,           // bInterfaceProtocol (none)
-		0               // iInterface
-	},
-	{   // HID
-		9,
-		DESCRIPTOR_HID,
-		0x0111,         // bcdHID 1.11
-		0,              // bCountryCode
-		1,              // bNumDescriptors
-		DESCRIPTOR_HID_REPORT,
-		sizeof (s_HIDReportDescriptor)
-	},
-	{   // Endpoint IN (EP1, Interrupt)
-		sizeof (TUSBEndpointDescriptor),
-		DESCRIPTOR_ENDPOINT,
-		0x81,           // EP1 IN
-		0x03,           // Interrupt
-		64,             // wMaxPacketSize
-		5               // bInterval (5 ms)
-	}
+    {   // Configuration
+        sizeof (TUSBConfigurationDescriptor),
+        DESCRIPTOR_CONFIGURATION,
+        sizeof (TDS4ConfigDescriptor),
+        1,              // bNumInterfaces
+        1,              // bConfigurationValue
+        0,              // iConfiguration
+        0x80,           // bmAttributes (bus-powered)
+        250             // bMaxPower (500 mA)
+    },
+    {   // Interface
+        sizeof (TUSBInterfaceDescriptor),
+        DESCRIPTOR_INTERFACE,
+        0, 0,           // bInterfaceNumber, bAlternateSetting
+        1,              // bNumEndpoints
+        0x03,           // bInterfaceClass (HID)
+        0x00,           // bInterfaceSubClass (no boot)
+        0x00,           // bInterfaceProtocol (none)
+        0               // iInterface
+    },
+    {   // HID
+        9,
+        DESCRIPTOR_HID,
+        0x0111,         // bcdHID 1.11
+        0,              // bCountryCode
+        1,              // bNumDescriptors
+        DESCRIPTOR_HID_REPORT,
+        sizeof (s_HIDReportDescriptor)
+    },
+    {   // Endpoint IN (EP1, Interrupt)
+        sizeof (TUSBEndpointDescriptor),
+        DESCRIPTOR_ENDPOINT,
+        0x81,           // EP1 IN
+        0x03,           // Interrupt
+        64,             // wMaxPacketSize
+        5               // bInterval (5 ms)
+    }
 };
 
 static TUSBDeviceDescriptor s_DeviceDescriptor =
 {
-	sizeof (TUSBDeviceDescriptor),
-	DESCRIPTOR_DEVICE,
-	0x0200,           // bcdUSB (USB 2.0)
-	0, 0, 0,          // class/subclass/protocol defined at interface
-	64,               // bMaxPacketSize0
-	PS4_USB_VID,
-	PS4_USB_PID,
-	0x0100,           // bcdDevice
-	1, 2, 0,          // iManufacturer, iProduct, iSerialNumber
-	1                 // bNumConfigurations
+    sizeof (TUSBDeviceDescriptor),
+    DESCRIPTOR_DEVICE,
+    0x0200,           // bcdUSB (USB 2.0)
+    0, 0, 0,          // class/subclass/protocol defined at interface
+    64,               // bMaxPacketSize0
+    PS4_USB_VID,
+    PS4_USB_PID,
+    0x0100,           // bcdDevice
+    1, 2, 0,          // iManufacturer, iProduct, iSerialNumber
+    1                 // bNumConfigurations
 };
 
 static const char *const s_StringDescriptor[] =
 {
-	"\x04\x03\x09\x04",              // Language ID (English US)
-	"Sony Interactive Entertainment",
-	"Wireless Controller"
+    "\x04\x03\x09\x04",              // Language ID (English US)
+    "Sony Interactive Entertainment",
+    "Wireless Controller"
 };
 
 static u8 s_StringDescBuffer[STRING_DESC_BUFFER_SIZE];
 
 static const void *ToStringDescriptor (const char *pString, size_t *pLength)
 {
-	size_t nStrLen = 0;
-	while (pString[nStrLen])
-		nStrLen++;
+    size_t nStrLen = 0;
+    while (pString[nStrLen])
+        nStrLen++;
 
-	size_t nDescLen = 2 + 2 * nStrLen;
-	assert (nDescLen <= STRING_DESC_BUFFER_SIZE);
+    size_t nDescLen = 2 + 2 * nStrLen;
+    assert (nDescLen <= STRING_DESC_BUFFER_SIZE);
 
-	s_StringDescBuffer[0] = (u8) nDescLen;
-	s_StringDescBuffer[1] = DESCRIPTOR_STRING;
+    s_StringDescBuffer[0] = (u8) nDescLen;
+    s_StringDescBuffer[1] = DESCRIPTOR_STRING;
 
-	for (size_t i = 0; i < nStrLen; i++)
-	{
-		s_StringDescBuffer[2 + 2 * i] = (u8) pString[i];
-		s_StringDescBuffer[3 + 2 * i] = 0;
-	}
+    for (size_t i = 0; i < nStrLen; i++)
+    {
+        s_StringDescBuffer[2 + 2 * i] = (u8) pString[i];
+        s_StringDescBuffer[3 + 2 * i] = 0;
+    }
 
-	*pLength = nDescLen;
-	return s_StringDescBuffer;
+    *pLength = nDescLen;
+    return s_StringDescBuffer;
 }
 
 // Ref: 
@@ -203,29 +203,29 @@ static const void *ToStringDescriptor (const char *pString, size_t *pLength)
 // ---------------------------------------------------------------------------
 static const u8 s_FeatureReport12[16] =
 {
-	0x12,                                     // Report ID
-	0x00, 0x1A, 0x7D, 0xDA, 0x00, 0x01,       // Fake MAC: 00:1A:7D:DA:00:01
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00,       // padding
-	0x00, 0x00, 0x00
+    0x12,                                     // Report ID
+    0x00, 0x1A, 0x7D, 0xDA, 0x00, 0x01,       // Fake MAC: 00:1A:7D:DA:00:01
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,       // padding
+    0x00, 0x00, 0x00
 };
 
 static const u8 s_FeatureReportA3[49] =
 {
-	0xa3,                                     // Report ID
-	0x44, 0x75, 0x61, 0x6C, 0x53, 0x68,       // "DualSh"
-	0x6F, 0x63, 0x6B, 0x34, 0x00, 0x00,       // "ock4\0\0"
-	0x00, 0x00, 0x00,                         // reserved
-	// bytes 16-34: padding
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	// bytes 35-38: hw_version = 0x00000103 (little-endian)
-	0x03, 0x01, 0x00, 0x00,
-	// bytes 39-40: padding
-	0x00, 0x00,
-	// bytes 41-42: fw_version = 0x0100 (little-endian)
-	0x00, 0x01,
-	// bytes 43-48: padding
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0xa3,                                     // Report ID
+    0x44, 0x75, 0x61, 0x6C, 0x53, 0x68,       // "DualSh"
+    0x6F, 0x63, 0x6B, 0x34, 0x00, 0x00,       // "ock4\0\0"
+    0x00, 0x00, 0x00,                         // reserved
+    // bytes 16-34: padding
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    // bytes 35-38: hw_version = 0x00000103 (little-endian)
+    0x03, 0x01, 0x00, 0x00,
+    // bytes 39-40: padding
+    0x00, 0x00,
+    // bytes 41-42: fw_version = 0x0100 (little-endian)
+    0x00, 0x01,
+    // bytes 43-48: padding
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
 // Ref: https://github.com/torvalds/linux/blob/979c294509f9248fe1e7c358d582fb37dd5ca12d/drivers/hid/hid-playstation.c#L1907
@@ -245,33 +245,33 @@ static const u8 s_FeatureReportA3[49] =
 // Denominators (abs(plus)+abs(minus)) and (plus-minus) must all be non-zero.
 static const u8 s_FeatureReport02[37] =
 {
-	0x02,                 // Report ID
-	0x00, 0x00,           // gyro_pitch_bias = 0
-	0x00, 0x00,           // gyro_yaw_bias   = 0
-	0x00, 0x00,           // gyro_roll_bias  = 0
-	0x40, 0x1F,           // gyro_pitch_plus  = +8000
-	0xC0, 0xE0,           // gyro_pitch_minus = -8000
-	0x40, 0x1F,           // gyro_yaw_plus    = +8000
-	0xC0, 0xE0,           // gyro_yaw_minus   = -8000
-	0x40, 0x1F,           // gyro_roll_plus   = +8000
-	0xC0, 0xE0,           // gyro_roll_minus  = -8000
-	0x30, 0x11,           // gyro_speed_plus  = +4400
-	0x30, 0x11,           // gyro_speed_minus = +4400
-	0xA4, 0x1F,           // acc_x_plus  = +8100
-	0x5C, 0xE0,           // acc_x_minus = -8100
-	0xA4, 0x1F,           // acc_y_plus  = +8100
-	0x5C, 0xE0,           // acc_y_minus = -8100
-	0xA4, 0x1F,           // acc_z_plus  = +8100
-	0x5C, 0xE0,           // acc_z_minus = -8100
-	0x00, 0x00            // padding
+    0x02,                 // Report ID
+    0x00, 0x00,           // gyro_pitch_bias = 0
+    0x00, 0x00,           // gyro_yaw_bias   = 0
+    0x00, 0x00,           // gyro_roll_bias  = 0
+    0x40, 0x1F,           // gyro_pitch_plus  = +8000
+    0xC0, 0xE0,           // gyro_pitch_minus = -8000
+    0x40, 0x1F,           // gyro_yaw_plus    = +8000
+    0xC0, 0xE0,           // gyro_yaw_minus   = -8000
+    0x40, 0x1F,           // gyro_roll_plus   = +8000
+    0xC0, 0xE0,           // gyro_roll_minus  = -8000
+    0x30, 0x11,           // gyro_speed_plus  = +4400
+    0x30, 0x11,           // gyro_speed_minus = +4400
+    0xA4, 0x1F,           // acc_x_plus  = +8100
+    0x5C, 0xE0,           // acc_x_minus = -8100
+    0xA4, 0x1F,           // acc_y_plus  = +8100
+    0x5C, 0xE0,           // acc_y_minus = -8100
+    0xA4, 0x1F,           // acc_z_plus  = +8100
+    0x5C, 0xE0,           // acc_z_minus = -8100
+    0x00, 0x00            // padding
 };
 
 static int FillFeatureReport (u8 *pDst, unsigned nMaxLen,
-			                  const u8 *pSrc, unsigned nSrcLen)
+                              const u8 *pSrc, unsigned nSrcLen)
 {
-	unsigned nLen = nMaxLen < nSrcLen ? nMaxLen : nSrcLen;
-	memcpy (pDst, pSrc, nLen);
-	return (int) nLen;
+    unsigned nLen = nMaxLen < nSrcLen ? nMaxLen : nSrcLen;
+    memcpy (pDst, pSrc, nLen);
+    return (int) nLen;
 }
 
 
@@ -280,80 +280,80 @@ static int FillFeatureReport (u8 *pDst, unsigned nMaxLen,
 // ---------------------------------------------------------------------------
 
 CUSBDS4Gadget::CUSBDS4Gadget (CInterruptSystem *pInterruptSystem)
-:	CDWUSBGadget (pInterruptSystem, FullSpeed),
-	m_pEP {nullptr}
+:    CDWUSBGadget (pInterruptSystem, FullSpeed),
+    m_pEP {nullptr}
 {
-	CUSBDS4GadgetEndpoint::InitDS4Report (m_CurrentState);
+    CUSBDS4GadgetEndpoint::InitDS4Report (m_CurrentState);
 }
 
 CUSBDS4Gadget::~CUSBDS4Gadget (void)
 {
-	assert (0);
+    assert (0);
 }
 
 const void *CUSBDS4Gadget::GetDescriptor (u16 wValue, u16 wIndex, size_t *pLength)
 {
-	assert (pLength);
+    assert (pLength);
 
-	// wValue = [ DescriptorType (high byte) | DescriptorIndex (low byte) ]
-	u8 descType  = wValue >> 8;
-	u8 descIndex = wValue & 0xFF;
+    // wValue = [ DescriptorType (high byte) | DescriptorIndex (low byte) ]
+    u8 descType  = wValue >> 8;
+    u8 descIndex = wValue & 0xFF;
 
-	switch (descType)
-	{
-	case DESCRIPTOR_DEVICE:
-		if (!descIndex)
-		{
-			*pLength = sizeof s_DeviceDescriptor;
-			return &s_DeviceDescriptor;
-		}
-		break;
+    switch (descType)
+    {
+    case DESCRIPTOR_DEVICE:
+        if (!descIndex)
+        {
+            *pLength = sizeof s_DeviceDescriptor;
+            return &s_DeviceDescriptor;
+        }
+        break;
 
-	case DESCRIPTOR_CONFIGURATION:
-		if (!descIndex)
-		{
-			*pLength = sizeof s_ConfigDescriptor;
-			return &s_ConfigDescriptor;
-		}
-		break;
+    case DESCRIPTOR_CONFIGURATION:
+        if (!descIndex)
+        {
+            *pLength = sizeof s_ConfigDescriptor;
+            return &s_ConfigDescriptor;
+        }
+        break;
 
-	case DESCRIPTOR_STRING:
-		switch (descIndex)
-		{
-		case 0:
-			*pLength = 4;
-			return s_StringDescriptor[0];
-		case 1:
-		case 2:
-			
-			return ToStringDescriptor (s_StringDescriptor[descIndex], pLength);
-		}
-		break;
+    case DESCRIPTOR_STRING:
+        switch (descIndex)
+        {
+        case 0:
+            *pLength = 4;
+            return s_StringDescriptor[0];
+        case 1:
+        case 2:
+            
+            return ToStringDescriptor (s_StringDescriptor[descIndex], pLength);
+        }
+        break;
 
-	case DESCRIPTOR_HID:
-		if (!descIndex)
-		{
-			*pLength = sizeof s_ConfigDescriptor.HID;
-			return &s_ConfigDescriptor.HID;
-		}
-		break;
+    case DESCRIPTOR_HID:
+        if (!descIndex)
+        {
+            *pLength = sizeof s_ConfigDescriptor.HID;
+            return &s_ConfigDescriptor.HID;
+        }
+        break;
 
-	case DESCRIPTOR_HID_REPORT:
-		if (!descIndex)
-		{
-			*pLength = sizeof s_HIDReportDescriptor;
-			return s_HIDReportDescriptor;
-		}
-		break;
-	}
+    case DESCRIPTOR_HID_REPORT:
+        if (!descIndex)
+        {
+            *pLength = sizeof s_HIDReportDescriptor;
+            return s_HIDReportDescriptor;
+        }
+        break;
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 void CUSBDS4Gadget::AddEndpoints (void)
 {
-	assert (!m_pEP[EPIn]);
-	m_pEP[EPIn] = new CUSBDS4GadgetEndpoint (&s_ConfigDescriptor.EndpointIn, this);
+    assert (!m_pEP[EPIn]);
+    m_pEP[EPIn] = new CUSBDS4GadgetEndpoint (&s_ConfigDescriptor.EndpointIn, this);
 }
 
 void CUSBDS4Gadget::CreateDevice (void)
@@ -362,73 +362,73 @@ void CUSBDS4Gadget::CreateDevice (void)
 
 void CUSBDS4Gadget::OnSuspend (void)
 {
-	if (m_pEP[EPIn])
-	{
-		m_pEP[EPIn]->OnSuspend ();
-		delete m_pEP[EPIn];
-		m_pEP[EPIn] = nullptr;
-	}
+    if (m_pEP[EPIn])
+    {
+        m_pEP[EPIn]->OnSuspend ();
+        delete m_pEP[EPIn];
+        m_pEP[EPIn] = nullptr;
+    }
 }
 
 int CUSBDS4Gadget::OnClassOrVendorRequest (const TSetupData *pSetupData, u8 *pData)
 {
-	assert (pSetupData);
+    assert (pSetupData);
 
-	switch (pSetupData->bRequest)
-	{
-	case 0x01:   // GET_REPORT
-		if (pSetupData->bmRequestType == 0xA1)
-		{
-			u8 nReportType = pSetupData->wValue >> 8;
-			u8 nReportID   = pSetupData->wValue & 0xFF;
+    switch (pSetupData->bRequest)
+    {
+    case 0x01:   // GET_REPORT
+        if (pSetupData->bmRequestType == 0xA1)
+        {
+            u8 nReportType = pSetupData->wValue >> 8;
+            u8 nReportID   = pSetupData->wValue & 0xFF;
 
-			if (nReportType == 0x03)   // Feature report
-			{
-				switch (nReportID)
-				{
-				case 0x12:
-					// Pairing info: report ID + 6-byte MAC + padding
-					// The playstation driver extracts bytes 1-6 as MAC.
-					return FillFeatureReport (pData, pSetupData->wLength,
-								  			  s_FeatureReport12,
-								  			  sizeof s_FeatureReport12);
+            if (nReportType == 0x03)   // Feature report
+            {
+                switch (nReportID)
+                {
+                case 0x12:
+                    // Pairing info: report ID + 6-byte MAC + padding
+                    // The playstation driver extracts bytes 1-6 as MAC.
+                    return FillFeatureReport (pData, pSetupData->wLength,
+                                                s_FeatureReport12,
+                                                sizeof s_FeatureReport12);
 
-				case 0xa3:
-					// Firmware version info (49 bytes)
-					return FillFeatureReport (pData, pSetupData->wLength,
-								  			  s_FeatureReportA3,
-								  			  sizeof s_FeatureReportA3);
+                case 0xa3:
+                    // Firmware version info (49 bytes)
+                    return FillFeatureReport (pData, pSetupData->wLength,
+                                                s_FeatureReportA3,
+                                                sizeof s_FeatureReportA3);
 
-				case 0x02:
-					// IMU calibration data (37 bytes)
-					return FillFeatureReport (pData, pSetupData->wLength,
-								  			  s_FeatureReport02,
-								  			  sizeof s_FeatureReport02);
+                case 0x02:
+                    // IMU calibration data (37 bytes)
+                    return FillFeatureReport (pData, pSetupData->wLength,
+                                                s_FeatureReport02,
+                                                sizeof s_FeatureReport02);
 
-				default:
-					break;
-				}
-			}
-			else   // Input report
-			{
-				unsigned nLen = pSetupData->wLength < DS4_REPORT_SIZE
-					      ? pSetupData->wLength : DS4_REPORT_SIZE;
-				memcpy (pData, m_CurrentState, nLen);
-				return (int) nLen;
-			}
-		}
-		break;
+                default:
+                    break;
+                }
+            }
+            else   // Input report
+            {
+                unsigned nLen = pSetupData->wLength < DS4_REPORT_SIZE
+                          ? pSetupData->wLength : DS4_REPORT_SIZE;
+                memcpy (pData, m_CurrentState, nLen);
+                return (int) nLen;
+            }
+        }
+        break;
 
-	default:	// Ignore other cases
-		break;
-	}
+    default:    // Ignore other cases
+        break;
+    }
 
-	return CDWUSBGadget::OnClassOrVendorRequest (pSetupData, pData);
+    return CDWUSBGadget::OnClassOrVendorRequest (pSetupData, pData);
 }
 
 void CUSBDS4Gadget::SendDS4Report (const u8 *pReport)
 {
-	memcpy (m_CurrentState, pReport, DS4_REPORT_SIZE);
-	if (m_pEP[EPIn])
-		m_pEP[EPIn]->SendReport (pReport);
+    memcpy (m_CurrentState, pReport, DS4_REPORT_SIZE);
+    if (m_pEP[EPIn])
+        m_pEP[EPIn]->SendReport (pReport);
 }
