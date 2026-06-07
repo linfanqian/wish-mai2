@@ -1,4 +1,4 @@
-#include "usbps4gadget.h"
+#include "usbds4gadget.h"
 #include <circle/usb/usb.h>
 #include <circle/util.h>
 #include <assert.h>
@@ -256,11 +256,11 @@ static int FillFeatureReport (u8 *pDst, unsigned nMaxLen,
 
 // ---------------------------------------------------------------------------
 
-CUSBPS4Gadget::CUSBPS4Gadget (CInterruptSystem *pInterruptSystem)
+Cusbds4gadget::Cusbds4gadget (CInterruptSystem *pInterruptSystem)
 :	CDWUSBGadget (pInterruptSystem, FullSpeed),
 	m_pEP {nullptr}
 {
-	memset (m_CurrentReport, 0, PS4_REPORT_SIZE);
+	memset (m_CurrentReport, 0, DS4_REPORT_SIZE);
 	m_CurrentReport[0] = 0x01;
 	m_CurrentReport[1] = 0x80;
 	m_CurrentReport[2] = 0x80;
@@ -269,14 +269,14 @@ CUSBPS4Gadget::CUSBPS4Gadget (CInterruptSystem *pInterruptSystem)
 	m_CurrentReport[5] = 0x08;   // D-pad neutral
 }
 
-CUSBPS4Gadget::~CUSBPS4Gadget (void)
+Cusbds4gadget::~Cusbds4gadget (void)
 {
 	assert (0);
 }
 
-void CUSBPS4Gadget::SendReport (const u8 *pReport)
+void Cusbds4gadget::SendReport (const u8 *pReport)
 {
-	memcpy (m_CurrentReport, pReport, PS4_REPORT_SIZE);
+	memcpy (m_CurrentReport, pReport, DS4_REPORT_SIZE);
 	if (m_pEP[EPIn])
 		m_pEP[EPIn]->SendReport (pReport);
 }
@@ -285,7 +285,7 @@ void CUSBPS4Gadget::SendReport (const u8 *pReport)
 // CDWUSBGadget overrides
 // ---------------------------------------------------------------------------
 
-const void *CUSBPS4Gadget::GetDescriptor (u16 wValue, u16 wIndex, size_t *pLength)
+const void *Cusbds4gadget::GetDescriptor (u16 wValue, u16 wIndex, size_t *pLength)
 {
 	assert (pLength);
 
@@ -342,18 +342,18 @@ const void *CUSBPS4Gadget::GetDescriptor (u16 wValue, u16 wIndex, size_t *pLengt
 	return nullptr;
 }
 
-void CUSBPS4Gadget::AddEndpoints (void)
+void Cusbds4gadget::AddEndpoints (void)
 {
 	assert (!m_pEP[EPIn]);
-	m_pEP[EPIn] = new CUSBPS4GadgetEndpoint (&s_ConfigDescriptor.EndpointIn, this);
+	m_pEP[EPIn] = new CUSBDS4GadgetEndpoint (&s_ConfigDescriptor.EndpointIn, this);
 }
 
-void CUSBPS4Gadget::CreateDevice (void)
+void Cusbds4gadget::CreateDevice (void)
 {
 	// Endpoint drives itself; nothing extra to create.
 }
 
-void CUSBPS4Gadget::OnSuspend (void)
+void Cusbds4gadget::OnSuspend (void)
 {
 	if (m_pEP[EPIn])
 	{
@@ -363,7 +363,7 @@ void CUSBPS4Gadget::OnSuspend (void)
 	}
 }
 
-int CUSBPS4Gadget::OnClassOrVendorRequest (const TSetupData *pSetupData, u8 *pData)
+int Cusbds4gadget::OnClassOrVendorRequest (const TSetupData *pSetupData, u8 *pData)
 {
 	assert (pSetupData);
 
@@ -404,8 +404,8 @@ int CUSBPS4Gadget::OnClassOrVendorRequest (const TSetupData *pSetupData, u8 *pDa
 			}
 			else   // Input report
 			{
-				unsigned nLen = pSetupData->wLength < PS4_REPORT_SIZE
-					      ? pSetupData->wLength : PS4_REPORT_SIZE;
+				unsigned nLen = pSetupData->wLength < DS4_REPORT_SIZE
+					      ? pSetupData->wLength : DS4_REPORT_SIZE;
 				memcpy (pData, m_CurrentReport, nLen);
 				return (int) nLen;
 			}
@@ -449,7 +449,7 @@ int CUSBPS4Gadget::OnClassOrVendorRequest (const TSetupData *pSetupData, u8 *pDa
 
 // ---------------------------------------------------------------------------
 
-const void *CUSBPS4Gadget::ToStringDescriptor (const char *pString, size_t *pLength)
+const void *Cusbds4gadget::ToStringDescriptor (const char *pString, size_t *pLength)
 {
 	size_t nStrLen = 0;
 	while (pString[nStrLen])

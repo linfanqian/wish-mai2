@@ -35,7 +35,7 @@ boolean CKernel::Initialize (void)
 
 TShutdownMode CKernel::Run (void)
 {
-	u8 report[PS4_REPORT_SIZE];
+	u8 report[DS4_REPORT_SIZE];
 	u8 nCounter = 0;
 
 	while (TRUE)
@@ -57,7 +57,7 @@ TShutdownMode CKernel::Run (void)
 void CKernel::BuildReport (const CGPIOController::TButtonState &state,
 			    u8 *pReport, u8 nCounter)
 {
-	memset (pReport, 0, PS4_REPORT_SIZE);
+	memset (pReport, 0, DS4_REPORT_SIZE);
 
 	pReport[0] = 0x01;   // Report ID
 	pReport[1] = 0x80;   // LX center

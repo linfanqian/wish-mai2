@@ -17,6 +17,7 @@ CIRCLEHOME = circle
 INCLUDE = -I src
 
 OBJS = $(patsubst src/%.cpp,src/%.o,$(wildcard src/*.cpp))
+EXTRACLEAN = src/*.o src/*.d
 
 LIBS = $(CIRCLEHOME)/lib/usb/gadget/libusbgadget.a \
        $(CIRCLEHOME)/lib/usb/libusb.a \

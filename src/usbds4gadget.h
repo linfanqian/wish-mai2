@@ -1,22 +1,22 @@
-#ifndef _usbps4gadget_h
-#define _usbps4gadget_h
+#ifndef _usbds4gadget_h
+#define _usbds4gadget_h
 
 #include <circle/usb/gadget/dwusbgadget.h>
 #include <circle/usb/usb.h>
 #include <circle/interrupt.h>
 #include <circle/macros.h>
 #include <circle/types.h>
-#include "usbps4gadgetendpoint.h"
+#include "usbds4gadgetendpoint.h"
 
 // Sony DualShock 4 v1 USB identity
 #define PS4_USB_VID  0x054C
 #define PS4_USB_PID  0x05C4
 
-class CUSBPS4Gadget : public CDWUSBGadget
+class Cusbds4gadget : public CDWUSBGadget
 {
 public:
-	CUSBPS4Gadget (CInterruptSystem *pInterruptSystem);
-	~CUSBPS4Gadget (void);
+	Cusbds4gadget (CInterruptSystem *pInterruptSystem);
+	~Cusbds4gadget (void);
 
 	// Update the report sent to the host on the next IN poll.
 	// Safe to call from the main loop.
@@ -38,10 +38,10 @@ private:
 		NumEPs
 	};
 
-	CUSBPS4GadgetEndpoint *m_pEP[NumEPs];
+	CUSBDS4GadgetEndpoint *m_pEP[NumEPs];
 
 	// Kept for GET_REPORT responses on EP0.
-	u8 m_CurrentReport[PS4_REPORT_SIZE];
+	u8 m_CurrentReport[DS4_REPORT_SIZE];
 
 	u8 m_StringDescBuffer[80];
 };

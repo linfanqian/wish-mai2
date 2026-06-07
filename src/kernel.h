@@ -10,7 +10,7 @@
 #include <circle/timer.h>
 #include <circle/logger.h>
 #include <circle/types.h>
-#include "usbps4gadget.h"
+#include "usbds4gadget.h"
 #include "gpiocontroller.h"
 
 enum TShutdownMode
@@ -43,7 +43,7 @@ private:
 	CInterruptSystem   m_Interrupt;
 	CTimer             m_Timer;
 	CLogger            m_Logger;
-	CUSBPS4Gadget      m_PS4Gadget;
+	Cusbds4gadget      m_PS4Gadget;
 	CGPIOController    m_GPIO;
 };
 
