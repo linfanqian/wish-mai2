@@ -7,24 +7,13 @@
 #define REPORT_ID 0x01
 #define STICK_CENTER 128	// stick x/y value 0-255
 
-static void InitReport (u8 *buf)
-{
-	memset (buf, 0, DS4_REPORT_SIZE);
-	buf[0] = REPORT_ID;
-	buf[1] = STICK_CENTER;	// lx
-	buf[2] = STICK_CENTER;	// ly
-	buf[3] = STICK_CENTER;	// rx
-	buf[4] = STICK_CENTER;	// ry
-	buf[5] = 8;				// D-pad neutral (hat = 8)
-}
-
 CUSBDS4GadgetEndpoint::CUSBDS4GadgetEndpoint (const TUSBEndpointDescriptor *pDesc,
-					      					  Cusbds4gadget *pGadget)
+					      					  CUSBDS4Gadget *pGadget)
 :	CDWUSBGadgetEndpoint (pDesc, pGadget),
 	m_bActive (FALSE)
 {
-	InitReport (m_DMABuffer);
-	InitReport (m_PendingBuffer);
+	InitDS4Report (m_DMABuffer);
+	InitDS4Report (m_PendingBuffer);
 }
 
 CUSBDS4GadgetEndpoint::~CUSBDS4GadgetEndpoint (void)
@@ -53,6 +42,17 @@ void CUSBDS4GadgetEndpoint::OnTransferComplete (boolean bIn, size_t nLength)
 		m_SpinLock.Release ();
 		BeginTransfer (TransferDataIn, m_DMABuffer, DS4_REPORT_SIZE);
 	}
+}
+
+void CUSBDS4GadgetEndpoint::InitDS4Report (u8 *buf)
+{
+	memset (buf, 0, DS4_REPORT_SIZE);
+	buf[0] = REPORT_ID;
+	buf[1] = STICK_CENTER;	// lx
+	buf[2] = STICK_CENTER;	// ly
+	buf[3] = STICK_CENTER;	// rx
+	buf[4] = STICK_CENTER;	// ry
+	buf[5] = 8;				// D-pad neutral (hat = 8)
 }
 
 void CUSBDS4GadgetEndpoint::SendReport (const u8 *pReport)

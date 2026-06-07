@@ -19,18 +19,21 @@
    https://github.com/torvalds/linux/blob/ba3e43a9e601636f5edb54e259a74f96ca3b8fd8/drivers/hid/hid-playstation.c#L478 */
 #define DS4_REPORT_SIZE  64
 
-class Cusbds4gadget;
+class CUSBDS4Gadget;
 
 class CUSBDS4GadgetEndpoint : public CDWUSBGadgetEndpoint
 {
 public:
-	CUSBDS4GadgetEndpoint (const TUSBEndpointDescriptor *pDesc, Cusbds4gadget *pGadget);
+	CUSBDS4GadgetEndpoint (const TUSBEndpointDescriptor *pDesc, CUSBDS4Gadget *pGadget);
 	~CUSBDS4GadgetEndpoint (void);
 
 	void OnActivate (void) override;
 	void OnDeactivate (void) override;
 	void OnTransferComplete (boolean bIn, size_t nLength) override;
 	void OnSuspend (void) override;
+
+	// Buffer must be DS4_REPORT_SIZE long.
+	static void InitDS4Report (u8 *buf);
 
 	// Stage a next report. Copy the report to DMA buffer when inflight transfer completed
 	// Thread-safe is guaranteed, so it's ok to call SendReport when during a DMA transfer

@@ -43,7 +43,7 @@ private:
 	CInterruptSystem   m_Interrupt;
 	CTimer             m_Timer;
 	CLogger            m_Logger;
-	Cusbds4gadget      m_PS4Gadget;
+	CUSBDS4Gadget      m_PS4Gadget;
 	CGPIOController    m_GPIO;
 };
 

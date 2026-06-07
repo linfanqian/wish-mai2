@@ -46,7 +46,7 @@ TShutdownMode CKernel::Run (void)
 		m_GPIO.Read (&state);
 
 		BuildReport (state, report, nCounter++);
-		m_PS4Gadget.SendReport (report);
+		m_PS4Gadget.SendDS4Report (report);
 
 		m_Timer.MsDelay (5);
 	}
