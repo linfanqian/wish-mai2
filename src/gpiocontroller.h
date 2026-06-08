@@ -3,36 +3,38 @@
 
 #include <circle/gpiopin.h>
 #include <circle/types.h>
+#include "usbds4gadgetendpoint.h"
 
-// GPIO pin assignments (all active-low, internal pull-up)
+// GPIO pin assignments
 //
-//  GPIO 4  → North  (Triangle)     GPIO 5  → D-pad Up
-//  GPIO 17 → East   (Circle)       GPIO 6  → D-pad Right
-//  GPIO 27 → South  (Cross)        GPIO 13 → D-pad Down
-//  GPIO 22 → West   (Square)       GPIO 19 → D-pad Left
-//
-// Wire each button between the GPIO pin and GND.
+//  GPIO 4  → North  (Triangle)     GPIO 17 → D-pad Up
+//  GPIO 5  → East   (Circle)       GPIO 20 → D-pad Right
+//  GPIO 6  → South  (Cross)        GPIO 21 → D-pad Down
+//  GPIO 16 → West   (Square)       GPIO 22 → D-pad Left
+
+class CUSBDS4Gadget;
 
 class CGPIOController
 {
 public:
-    struct TButtonState
-    {
-        boolean bNorth;      // Triangle
-        boolean bEast;       // Circle
-        boolean bSouth;      // Cross / X
-        boolean bWest;       // Square
-        boolean bDpadUp;
-        boolean bDpadRight;
-        boolean bDpadDown;
-        boolean bDpadLeft;
-    };
-
     CGPIOController (void);
 
-    void Read (TButtonState *pState);
+    // Poll button GPIO states and send to the host
+    void PollAndSend (CUSBDS4Gadget *pGadget);
 
 private:
+    enum TPinNumber
+    {
+        PinNorth     = 4,
+        PinEast      = 5,
+        PinSouth     = 6,
+        PinWest      = 16,
+        PinDpadUp    = 17,
+        PinDpadRight = 20,
+        PinDpadDown  = 21,
+        PinDpadLeft  = 22
+    };
+
     CGPIOPin m_PinNorth;
     CGPIOPin m_PinEast;
     CGPIOPin m_PinSouth;
@@ -41,6 +43,8 @@ private:
     CGPIOPin m_PinDpadRight;
     CGPIOPin m_PinDpadDown;
     CGPIOPin m_PinDpadLeft;
+
+    u8 nCounter;
 };
 
 #endif

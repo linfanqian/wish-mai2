@@ -6,7 +6,6 @@
 #include <circle/gpiopin.h>
 #include <circle/interrupt.h>
 #include <circle/timer.h>
-#include <circle/logger.h>
 #include "usbds4gadget.h"
 
 class CButtonTest

@@ -1,5 +1,6 @@
 #include "buttontest.h"
 #include "usbds4gadgetendpoint.h"
+#include <circle/logger.h>
 
 // Log button action if there's any
 static void LogButtonAction (const char *pPinName, unsigned prevAct, unsigned curAct)

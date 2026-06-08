@@ -36,8 +36,10 @@ boolean CKernel::Initialize (void)
 
 TShutdownMode CKernel::Run (void)
 {
-    CButtonTest ctest;
-    ctest.TestGPIO ();
+    while (1)
+	{
+		m_GPIO.PollAndSend (&m_PS4Gadget);
+	}
 
     return ShutdownHalt;
 }
