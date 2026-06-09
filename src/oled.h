@@ -19,10 +19,14 @@ public:
     void Clear (void);
     void Show (void);
 
-    void DrawPixel  (unsigned nX, unsigned nY, boolean bOn);
+    void DrawPixel (unsigned nX, unsigned nY, boolean bOn);
+    void DrawLine (unsigned nX0, unsigned nY0, unsigned nX1, unsigned nY1, boolean bOn);
+    void DrawFillRect (unsigned nX, unsigned nY, unsigned nW, unsigned nH, boolean bOn);
+    void DrawButton   (unsigned nCX, unsigned nCY, boolean bPressed);
+
     // Draw a single character at pixel position (x, y), scale 1 = 5x7 px.
     void DrawChar (unsigned nX, unsigned nY, char c, unsigned nScale = 1);
-    // Draw a NUL-terminated string; wraps at display edge.
+    // Draw a NUL-terminated string starting at (nX, nY).
     void DrawText (unsigned nX, unsigned nY, const char *pText, unsigned nScale = 1);
 
 private:

@@ -19,8 +19,8 @@ class CGPIOController
 public:
     CGPIOController (void);
 
-    // Poll button GPIO states and send to the host
-    void PollAndSend (CUSBDS4Gadget *pGadget);
+    void Read (TDS4ButtonState *pState);
+    void Send (CUSBDS4Gadget *pGadget, const TDS4ButtonState &state);
 
 private:
     enum TPinNumber

@@ -20,40 +20,40 @@ CGPIOController::CGPIOController (void)
         PinDpadUp, PinDpadRight, PinDpadDown, PinDpadLeft);
 }
 
-void CGPIOController::PollAndSend (CUSBDS4Gadget *pGadget)
+void CGPIOController::Read (TDS4ButtonState *pState)
 {
     // Pressed = read 0
-    boolean bNorth = !m_PinNorth.Read ();
-    boolean bEast  = !m_PinEast.Read ();
-    boolean bSouth = !m_PinSouth.Read ();
-    boolean bWest  = !m_PinWest.Read ();
-    boolean bUp    = !m_PinDpadUp.Read ();
-    boolean bRight = !m_PinDpadRight.Read ();
-    boolean bDown  = !m_PinDpadDown.Read ();
-    boolean bLeft  = !m_PinDpadLeft.Read ();
+    pState->bNorth     = !m_PinNorth.Read ();
+    pState->bEast      = !m_PinEast.Read ();
+    pState->bSouth     = !m_PinSouth.Read ();
+    pState->bWest      = !m_PinWest.Read ();
+    pState->bDpadUp    = !m_PinDpadUp.Read ();
+    pState->bDpadRight = !m_PinDpadRight.Read ();
+    pState->bDpadDown  = !m_PinDpadDown.Read ();
+    pState->bDpadLeft  = !m_PinDpadLeft.Read ();
+}
 
+void CGPIOController::Send (CUSBDS4Gadget *pGadget, const TDS4ButtonState &state)
+{
     u8 report[DS4_REPORT_SIZE];
 
     // D-pad conflict: up+down or left+right are invalid for DS4
-    boolean conflict = (bUp && bDown) || (bLeft && bRight);
+    boolean conflict = (state.bDpadUp && state.bDpadDown) || (state.bDpadLeft && state.bDpadRight);
 
     if (conflict)
     {
-        // Send Up+Left first, then Down+Right
-        TDS4ButtonState state1 = { bNorth, bEast, bSouth, bWest,
-                                   bUp, false, false, bLeft };
+        TDS4ButtonState state1 = { state.bNorth, state.bEast, state.bSouth, state.bWest,
+                                   state.bDpadUp, false, false, state.bDpadLeft };
         CUSBDS4GadgetEndpoint::CreateDS4Report (report, &state1, nCounter++);
         pGadget->SendDS4Report (report);
 
-        TDS4ButtonState state2 = { bNorth, bEast, bSouth, bWest,
-                                   false, bRight, bDown, false };
+        TDS4ButtonState state2 = { state.bNorth, state.bEast, state.bSouth, state.bWest,
+                                   false, state.bDpadRight, state.bDpadDown, false };
         CUSBDS4GadgetEndpoint::CreateDS4Report (report, &state2, nCounter++);
         pGadget->SendDS4Report (report);
     }
     else
     {
-        TDS4ButtonState state = { bNorth, bEast, bSouth, bWest,
-                                  bUp, bRight, bDown, bLeft };
         CUSBDS4GadgetEndpoint::CreateDS4Report (report, &state, nCounter++);
         pGadget->SendDS4Report (report);
     }

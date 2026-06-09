@@ -199,6 +199,47 @@ void COLED::DrawPixel (unsigned nX, unsigned nY, boolean bOn)
         *pByte &= ~(1 << (nY & 7));
 }
 
+void COLED::DrawLine (unsigned nX0, unsigned nY0, unsigned nX1, unsigned nY1, boolean bOn)
+{
+    unsigned x = nX0, y = nY0;
+    int dx = (nX1 > nX0) ? nX1 - nX0 : nX0 - nX1;
+    int dy = (nY1 > nY0) ? nY1 - nY0 : nY0 - nY1;
+    int sx = (nX0 < nX1) ? 1 : -1;
+    int sy = (nY0 < nY1) ? 1 : -1;
+
+    // Tracks how far the "ideal" line has drifted from the pixel grid
+    // When it gets too large in one axis, the other axis steps to compensate
+    int err = dx - dy;
+    for (;;)
+    {
+        DrawPixel (x, y, bOn);
+
+        if (x == nX1 && y == nY1) break;
+
+        int e2 = err * 2;    // to avoid division
+        if (e2 > -dy) { 
+            err -= dy; 
+            x += sx; 
+        }
+        if (e2 < dx) { 
+            err += dx; 
+            y += sy; 
+        }
+    }
+}
+
+void COLED::DrawFillRect (unsigned nX, unsigned nY, unsigned nW, unsigned nH, boolean bOn)
+{
+    for (unsigned y = nY; y < nY + nH; y++)
+        DrawLine (nX, y, nX + nW - 1, y, bOn);
+}
+
+void COLED::DrawButton (unsigned nCX, unsigned nCY, boolean bPressed)
+{
+    unsigned nHalf = bPressed ? 5 : 2;
+    DrawFillRect (nCX - nHalf, nCY - nHalf, nHalf * 2 + 1, nHalf * 2 + 1, TRUE);
+}
+
 // https://github.com/adafruit/Adafruit-GFX-Library/blob/ac6d7c3869a693d406f77b9bfcd486b0673169f0/Adafruit_GFX.cpp#L1249
 void COLED::DrawChar (unsigned nX, unsigned nY, char c, unsigned nScale)
 {
@@ -231,7 +272,7 @@ void COLED::DrawText (unsigned nX, unsigned nY, const char *pText,
     size_t nLen = strlen (pText);
 
     for (unsigned i = 0; i < nLen; i++)
-        DrawChar (nCharWidth * i, nY, pText[i], nScale);
+        DrawChar (nX + nCharWidth * i, nY, pText[i], nScale);
 }
 
 void COLED::SendCommand (u8 cmd)
