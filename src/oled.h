@@ -6,18 +6,19 @@
 #ifndef _oled_h
 #define _oled_h
 
-#include <circle/i2cmaster.h>
 #include <circle/types.h>
+#include "i2cmasterasync.h"
 
 class COLED
 {
 public:
-    COLED (CI2CMaster *pI2CMaster);
+    COLED (CI2CMasterAsync *pI2CMaster);
 
     boolean Initialize (void);
 
     void Clear (void);
-    void Show (void);
+    void ShowAsync (void);  // nop if another show is in progress
+    boolean IsShowDone (void) const;
 
     void DrawPixel (unsigned nX, unsigned nY, boolean bOn);
     void DrawLine (unsigned nX0, unsigned nY0, unsigned nX1, unsigned nY1, boolean bOn);
@@ -33,7 +34,7 @@ private:
     // Send a byte over I2C
     void SendCommand (u8 cmd);
 
-    CI2CMaster *m_pI2CMaster;
+    CI2CMasterAsync *m_pI2CMaster;
 
     // Display buffer: 1 control byte + 128*8 data bytes
     enum

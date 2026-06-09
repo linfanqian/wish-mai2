@@ -10,7 +10,7 @@
 #include <circle/timer.h>
 #include <circle/logger.h>
 #include <circle/types.h>
-#include <circle/i2cmaster.h>
+#include "i2cmasterasync.h"
 #include "usbds4gadget.h"
 #include "gpiocontroller.h"
 #include "oled.h"
@@ -40,7 +40,7 @@ private:
     CInterruptSystem   m_Interrupt;
     CTimer             m_Timer;
     CLogger            m_Logger;
-    CI2CMaster         m_I2CMaster;
+    CI2CMasterAsync    m_I2CMasterAsync;
     COLED              m_OLED;
     CUSBDS4Gadget      m_PS4Gadget;
     CGPIOController    m_GPIO;

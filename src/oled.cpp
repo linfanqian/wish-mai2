@@ -155,7 +155,7 @@ static const u8 s_InitSequence[] =
     0xAF,        // Display ON
 };
 
-COLED::COLED (CI2CMaster *pI2CMaster)
+COLED::COLED (CI2CMasterAsync *pI2CMaster)
 :    m_pI2CMaster (pI2CMaster)
 {
     m_I2CBuffer[0] = 0x40;   // I2C control byte
@@ -169,7 +169,7 @@ boolean COLED::Initialize (void)
         SendCommand (s_InitSequence[i]);
 
     Clear ();
-    Show ();
+    ShowAsync ();
 
     CLogger::Get ()->Write ("oled", LogNotice, "SSD1306 OLED initialized");
 
@@ -181,9 +181,15 @@ void COLED::Clear (void)
     memset (m_DisplayBuffer, 0, DisplayBufferSize);
 }
 
-void COLED::Show (void)
+void COLED::ShowAsync (void)
 {
-    m_pI2CMaster->Write (I2CAddress, m_I2CBuffer, I2CBufferSize);
+    if (!m_pI2CMaster->IsBusy ())
+        m_pI2CMaster->WriteAsync (I2CAddress, m_I2CBuffer, I2CBufferSize);
+}
+
+boolean COLED::IsShowDone (void) const
+{
+    return !m_pI2CMaster->IsBusy ();
 }
 
 void COLED::DrawPixel (unsigned nX, unsigned nY, boolean bOn)

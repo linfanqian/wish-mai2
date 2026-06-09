@@ -53,14 +53,14 @@ static void DrawOLEDButtons (COLED *pOled, TDS4ButtonState &state)
     for (unsigned i = 0; i < 8; i++)
         pOled->DrawButton (s_ButtonPos[i].nCX, s_ButtonPos[i].nCY, bButtons[i]);
 
-    pOled->Show ();
+    pOled->ShowAsync ();
 }
 
 CKernel::CKernel (void)
 :    m_Timer (&m_Interrupt),
     m_Logger (m_Options.GetLogLevel (), &m_Timer),
-    m_I2CMaster (1),
-    m_OLED (&m_I2CMaster),
+    m_I2CMasterAsync (&m_Interrupt),
+    m_OLED (&m_I2CMasterAsync),
     m_PS4Gadget (&m_Interrupt)
 {
     m_ActLED.Blink (5);
@@ -78,7 +78,7 @@ boolean CKernel::Initialize (void)
     if (bOK) bOK = m_Logger.Initialize (&m_Serial);
     if (bOK) bOK = m_Interrupt.Initialize ();
     if (bOK) bOK = m_Timer.Initialize ();
-    if (bOK) bOK = m_I2CMaster.Initialize ();
+    if (bOK) bOK = m_I2CMasterAsync.Initialize ();
     if (bOK) bOK = m_OLED.Initialize ();
     if (bOK) bOK = m_PS4Gadget.Initialize ();
 
@@ -102,8 +102,8 @@ TShutdownMode CKernel::Run (void)
         m_GPIO.Read (&state);
         m_GPIO.Send (&m_PS4Gadget, state);
 
-        // Update OLED on state change
-        if (memcmp (&state, &prevState, sizeof state))
+        // Update OLED on state change, but only once the previous transfer is done
+        if (m_OLED.IsShowDone () && memcmp (&state, &prevState, sizeof state))
         {
             DrawOLEDButtons (&m_OLED, state);
             prevState = state;
