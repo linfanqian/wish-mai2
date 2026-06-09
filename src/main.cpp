@@ -1,3 +1,5 @@
+// This file is copied from samples in Circle
+
 #include "kernel.h"
 #include <circle/startup.h>
 

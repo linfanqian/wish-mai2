@@ -10,8 +10,10 @@
 #include <circle/timer.h>
 #include <circle/logger.h>
 #include <circle/types.h>
+#include <circle/i2cmaster.h>
 #include "usbds4gadget.h"
 #include "gpiocontroller.h"
+#include "oled.h"
 
 enum TShutdownMode
 {
@@ -30,8 +32,6 @@ public:
     TShutdownMode Run (void);
 
 private:
-    // Member declaration order must not change: each constructor may take
-    // a pointer to a previously declared member.
     CActLED            m_ActLED;
     CKernelOptions     m_Options;
     CDeviceNameService m_DeviceNameService;
@@ -40,6 +40,8 @@ private:
     CInterruptSystem   m_Interrupt;
     CTimer             m_Timer;
     CLogger            m_Logger;
+    CI2CMaster         m_I2CMaster;
+    COLED              m_OLED;
     CUSBDS4Gadget      m_PS4Gadget;
     CGPIOController    m_GPIO;
 };
