@@ -18,7 +18,7 @@ framework.
 
 ## Artifacts
 
-1. A video demo for game playing is available in the `demo/` directory.
+1. Video demos for game playing and OLED display is available at [GoogleDrive](https://drive.google.com/drive/u/2/folders/1GlM-d_Bunc-BRCLeduyQuy7GR8Z5YI_3).
 2. A writeup for the project summary including background and implementation details
    is available in the `demo/` directory.
 
